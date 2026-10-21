@@ -1,0 +1,14 @@
+[
+  { "id": "trail-pack", "name": "Trail Pack 28L", "price": 89, "blurb": "Water-resistant day pack with a padded laptop sleeve." },
+  { "id": "camp-mug", "name": "Camp Mug", "price": 18, "blurb": "Double-wall steel. Keeps coffee hot for the whole morning." },
+  { "id": "head-lamp", "name": "Head Lamp 400", "price": 42, "blurb": "400 lumens, USB-C charging, red night mode." },
+  { "id": "rain-shell", "name": "Rain Shell", "price": 129, "blurb": "Light, packable and fully seam-taped." },
+  { "id": "wool-socks", "name": "Wool Socks, 3 pairs", "price": 36, "blurb": "Merino blend, cushioned heel and toe." },
+  { "id": "water-filter", "name": "Water Filter", "price": 54, "blurb": "Screws onto standard bottles. Filters 1,000 litres." },
+  { "id": "trek-poles", "name": "Trek Poles", "price": 74, "blurb": "Carbon, folding, cork grips." },
+  { "id": "sleep-pad", "name": "Sleep Pad", "price": 99, "blurb": "Insulated, inflates in ten breaths." },
+  { "id": "stove-kit", "name": "Stove Kit", "price": 64, "blurb": "Stove, pot and windscreen that nest into one." },
+  { "id": "sun-hat", "name": "Sun Hat", "price": 29, "blurb": "Wide brim, UPF 50, crushable." },
+  { "id": "first-aid", "name": "First Aid Kit", "price": 32, "blurb": "Two-person kit for a weekend out." },
+  { "id": "dry-bags", "name": "Dry Bags, set of 3", "price": 38, "blurb": "Roll-top, 3, 8 and 13 litres." }
+]
