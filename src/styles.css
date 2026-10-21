@@ -106,10 +106,15 @@ h1 {
   margin: 0;
 }
 
-.skeleton {
-  height: 140px;
-  border-radius: 12px;
+.bone {
   background: var(--skeleton);
+  color: transparent;
+  border-radius: 6px;
+}
+
+.card-media.bone {
+  aspect-ratio: 4 / 3;
+  border-radius: 0;
 }
 
 .site-footer {

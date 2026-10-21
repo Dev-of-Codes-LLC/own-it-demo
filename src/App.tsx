@@ -4,7 +4,8 @@ import { ProductCard } from './components/ProductCard';
 import { ProductSkeleton } from './components/ProductSkeleton';
 import { PromoBanner } from './components/PromoBanner';
 
-const SKELETON_COUNT = 4;
+// The API returns one page of 12 products. Show a placeholder for each.
+const PAGE_SIZE = 12;
 
 export function App() {
   const [products, setProducts] = useState<Product[] | null>(null);
@@ -26,7 +27,7 @@ export function App() {
         <div className="grid">
           {products
             ? products.map((p) => <ProductCard key={p.id} product={p} />)
-            : Array.from({ length: SKELETON_COUNT }, (_, i) => <ProductSkeleton key={i} />)}
+            : Array.from({ length: PAGE_SIZE }, (_, i) => <ProductSkeleton key={i} />)}
         </div>
       </main>
       <footer className="site-footer">
