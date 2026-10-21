@@ -1,0 +1,93 @@
+{
+  "id": "own-it-01-after-action",
+  "title": "Own It #1: the page that jumped",
+  "formats": ["16:9", "9:16"],
+  "voice": "piper:en_US-joe-medium",
+  "systems": {
+    "demo": {
+      "repo": "../..",
+      "baseUrl": "http://localhost:4173",
+      "install": "npm ci --no-audit --no-fund",
+      "build": "npm run build",
+      "serve": "npm run preview"
+    }
+  },
+  "measure": {
+    "system": "demo",
+    "page": "/products?delay=1500",
+    "network": "slow-4g",
+    "refs": ["before", "after"],
+    "runs": 3,
+    "lighthouse": "13.5.0"
+  },
+  "scenes": [
+    {
+      "type": "card", "template": "title",
+      "fields": { "kicker": "Own It · Episode 1", "title": "The page that jumped", "subtitle": "A failed UAT, reviewed by a blunt AI skill. Then fixed, and measured." },
+      "beats": [ { "say": "UAT came back bad. The product list jumps while it loads, and the team has reasons." } ]
+    },
+    {
+      "type": "card", "template": "text",
+      "fields": { "kicker": "What the team said", "title": "\u201cIt worked on my machine.\u201d", "body": "The QA API is slow. The testers clicked too fast. Nobody uses the site on train wifi." },
+      "beats": [ { "say": "The API is slow. The testers clicked too fast. It worked on my machine." } ]
+    },
+    {
+      "type": "browser", "system": "demo", "checkout": "before", "network": "slow-4g",
+      "overlay": ["layout-shift"], "badge": "before · Slow 4G",
+      "beats": [
+        { "say": "Here is the page on a slow phone connection, with every layout shift outlined.", "do": [ { "goto": "/products?delay=1500" } ] },
+        { "say": "Grey blocks first. Then the real cards arrive, taller, and shove everything down.", "do": [ { "waitFor": "main[data-state=loaded]" } ] },
+        { "say": "Then each picture lands and pushes the cards below it again.", "do": [ { "wait": 2500 } ] },
+        { "say": "And the font swaps in late, so every title and price moves one more time.", "do": [ { "wait": 1000 } ] }
+      ]
+    },
+    {
+      "type": "terminal", "take": "takes/after-action-run.jsonl",
+      "prompt": "UAT came back bad on the product list. The notes are in uat/feedback.md and what the team said is in uat/excuses.md. Do an after-action review.",
+      "beats": [
+        { "say": "So we hand it to after-action, a free skill inspired by Extreme Ownership.", "do": [ { "reveal": 2 } ] },
+        { "say": "REWRITE FROM THE REAL RUN: what it read before it judged.", "do": [ { "reveal": "tools" } ] },
+        { "say": "REWRITE FROM THE REAL RUN: the blunt reality, in its own words.", "do": [ { "reveal": "final" } ], "hold": 4000 }
+      ]
+    },
+    {
+      "type": "code", "repo": "../..", "diff": "before..after", "kicker": "git diff before..after", "title": "Four fixes, one commit each",
+      "files": ["src/components/ProductSkeleton.tsx", "src/components/ProductCard.tsx", "src/components/PromoBanner.tsx", "index.html"],
+      "beats": [
+        { "say": "Fix one: the skeleton uses the card's own layout, one placeholder per product.", "do": [ { "file": 1 } ] },
+        { "say": "Fix two: every image gets its size before it arrives.", "do": [ { "file": 2 } ] },
+        { "say": "Fix three: the banner gets a slot that is always there.", "do": [ { "file": 3 } ] },
+        { "say": "Fix four: preload the font, and never swap it in late.", "do": [ { "file": 4 } ] }
+      ]
+    },
+    {
+      "type": "browser", "system": "demo", "checkout": "after", "network": "slow-4g",
+      "overlay": ["layout-shift"], "badge": "after · Slow 4G",
+      "beats": [
+        { "say": "Same page. Same slow network.", "do": [ { "goto": "/products?delay=1500" } ] },
+        { "say": "Nothing moves.", "do": [ { "waitFor": "main[data-state=loaded]" }, { "wait": 3000 } ] }
+      ]
+    },
+    {
+      "type": "card", "template": "metric", "metric": "cls",
+      "fields": { "kicker": "Measured, not guessed" },
+      "beats": [ { "say": "Measured with Lighthouse on a throttled phone, before and after.", "hold": 4500 } ]
+    },
+    {
+      "type": "card", "template": "text",
+      "fields": { "kicker": "One honest note", "title": "LCP went up. The page did not get slower.", "body": "The pictures arrive at the same moment in both builds. Now the largest thing on screen is a product image, not the heading. That is the next episode." },
+      "beats": [ { "say": "One honest note. The load metric went up, but the page did not get slower. The biggest thing on screen is now a real product image, and that is the next fight." } ]
+    },
+    {
+      "type": "card", "template": "credit",
+      "fields": { "kicker": "Free and open source", "lines": [
+        "Inspired by Extreme Ownership by Jocko Willink and Leif Babin. Not affiliated with or endorsed by them.",
+        "github.com/Dev-of-Codes-LLC/agent-toolkit",
+        "github.com/Dev-of-Codes-LLC/own-it-demo",
+        "Filmed with DOC Docs, also free:",
+        "github.com/Dev-of-Codes-LLC/doc-docs"
+      ] },
+      "beats": [ { "say": "The skill, this demo, and the tool that filmed it are all free. Links are below.", "hold": 3000 } ]
+    }
+  ]
+}

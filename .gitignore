@@ -2,3 +2,6 @@ node_modules/
 dist/
 *.tsbuildinfo
 lighthouse/
+
+# DOC Docs build output (the videos and frames); measurements.json is kept
+episodes/*/build/
