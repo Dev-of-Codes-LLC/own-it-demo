@@ -2,7 +2,8 @@
   font-family: 'Syne';
   src: url('/fonts/syne-800.woff2') format('woff2');
   font-weight: 800;
-  font-display: swap;
+  /* optional: use Syne only if it is ready for the first paint; never swap later. */
+  font-display: optional;
 }
 
 :root {
