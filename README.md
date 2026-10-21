@@ -48,8 +48,19 @@ npm run build && npm run preview
 Lighthouse with real network throttling (`--throttling-method=devtools`), so the images and the font really arrive late:
 
 ```bash
-npx lighthouse "http://localhost:4173/products?delay=1500" --only-categories=performance --throttling-method=devtools --output=json --output-path=lighthouse/report.json
+npx lighthouse@13.5.0 "http://localhost:4173/products?delay=1500" --only-categories=performance --throttling-method=devtools --output=json --output-path=lighthouse/report.json
 ```
+
+Measured 2026-10-21: Lighthouse 13.5.0, Chrome 155, mobile, the default Slow 4G profile (562.5 ms latency, 1.6 Mbps down) and a 4x CPU slowdown. Three runs per tag; every run gave the same CLS.
+
+| Tag | CLS | Shifting elements | LCP | LCP element |
+| --- | --- | --- | --- | --- |
+| `before` | 0.730 | 6 | 1.5 s | The "Gear for the weekend" heading |
+| `after` | 0.000 | 0 | 3.9 s | The Camp Mug product image |
+
+CLS under 0.1 is "good"; over 0.25 is "poor".
+
+**Why LCP went up.** The page did not get slower. In both builds the product images finish loading at about 3.8 s, because the browser cannot ask for them until the fake API answers. On `before`, the largest element Lighthouse saw was the heading; on `after`, with every card at its full size from the first paint, it is a product image. The fixes made the page honest about when its main content arrives. Getting the images sooner (sending the first page of products with the HTML, or preloading the first images) is the next job, not part of this one.
 
 ## Credit
 
