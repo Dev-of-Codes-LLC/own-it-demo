@@ -44,9 +44,9 @@
         { "id": "cls", "kind": "counter", "label": "LAYOUT SHIFT", "digits": 3, "tone": "amber", "at": { "16:9": [78, 50], "9:16": [50, 79] } }
       ],
       "beats": [
-        { "say": "A layout shift is when the thing you are reading moves, and you did not touch anything.", "label": "layout *shift*",
+        { "say": "A layout shift is when the thing you are reading moves, and you did not touch anything.", "label": "layout *shift*", "pause": 450,
           "do": [ { "show": ["frame", "header", "card1", "card2"] }, { "show": "cls", "at": "moves" } ] },
-        { "say": "A picture arrives late, with no space kept for it.", "label": "a picture with *no size*",
+        { "say": "For example, a picture arrives late, with no space kept for it.", "label": "a picture with *no size*",
           "do": [ { "show": "img", "at": "picture" } ] },
         { "say": "So everything below it jumps. Google scores every jump.", "label": "everything below *jumps*",
           "do": [ { "set": { "id": "img", "at": { "16:9": [40, 25, 20, 16], "9:16": [22, 25, 56, 13] }, "ms": 260, "together": true }, "at": "jumps" },
@@ -68,7 +68,7 @@
         { "say": "Every amber box marks something that moved. The dashed line is where it was.", "label": "every *amber box* moved",
           "do": [ { "wait": 400 } ] },
         { "say": "The pictures had no size, and the font swapped in late, so it all moved again.", "label": "pictures with *no size*, a *late* font",
-          "do": [ { "zoom": ".grid", "scale": { "16:9": 1.25, "9:16": 1.12 }, "at": "pictures" }, { "unzoom": true, "at": "font" } ] }
+          "do": [ { "zoom": ".grid", "scale": { "9:16": 1.12 }, "at": "pictures" }, { "unzoom": true, "at": "font" } ] }
       ]
     },
     {
@@ -88,10 +88,10 @@
       "type": "terminal", "take": "takes/after-action-run.jsonl",
       "prompt": "UAT came back bad on the product list. The notes are in uat/feedback.md and what the team said is in uat/excuses.md. Do an after-action review.",
       "beats": [
-        { "say": "So we hand it to after-action, a free skill inspired by Extreme Ownership.", "label": "after-action reads the *evidence*",
+        { "say": "So we hand it to after-action, a free skill inspired by the book Extreme Ownership, by Jocko Willink and Leif Babin.", "label": "after-action reads the *evidence*",
           "do": [ { "reveal": 2 } ] },
-        { "say": "REWRITE FROM THE REAL RUN: what it read before it judged.", "do": [ { "reveal": "tools" } ] },
-        { "say": "REWRITE FROM THE REAL RUN: the blunt reality, in its own words.", "label": "then the *debrief*",
+        { "say": "It reads the evidence before it judges: the UAT notes, the code, and the history.", "do": [ { "reveal": "tools" } ] },
+        { "say": "Then it gives the debrief. Blunt, and every excuse owned.", "label": "then the *debrief*",
           "do": [ { "reveal": "final" } ], "hold": 3500 }
       ]
     },
@@ -127,7 +127,7 @@
     {
       "type": "card", "template": "credit",
       "fields": { "kicker": "Credit", "lines": [
-        "Inspired by Extreme Ownership by Jocko Willink and Leif Babin. Not affiliated with or endorsed by them.",
+        "Inspired by the book Extreme Ownership by Jocko Willink and Leif Babin. Not affiliated with or endorsed by them.",
         "github.com/Dev-of-Codes-LLC/agent-toolkit",
         "github.com/Dev-of-Codes-LLC/own-it-demo",
         "Filmed with DOC Docs, also free:",

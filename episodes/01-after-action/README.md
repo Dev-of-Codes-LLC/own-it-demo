@@ -20,9 +20,9 @@ git checkout -
 
 Keep the prompt the same as `prompt` in scene 4 of the storyboard, since the scene shows it on screen. The video shows the working folder as `~/own-it-demo`, not its real path.
 
-## 2. Rewrite scene 4's narration
+## 2. Check the terminal narration
 
-Two beats in scene 4 start with `REWRITE FROM THE REAL RUN`. Replace them with what the run actually did and said: what it read, and its blunt reality in its own words.
+The second and third beats of the terminal scene describe what after-action always does (it reads the evidence, then gives the debrief). Once the real take exists, check them against what the run actually read and said, and make them specific.
 
 ## 3. Build
 
