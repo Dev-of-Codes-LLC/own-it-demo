@@ -18,7 +18,7 @@ claude -p "UAT came back bad on the product list. The notes are in uat/feedback.
 git checkout -
 ```
 
-Keep the prompt the same as `prompt` in scene 4 of the storyboard, since the scene shows it on screen. The video shows the working folder as `~/own-it-demo`, not its real path.
+Keep the prompt the same as `prompt` in the storyboard's terminal scene, since the scene shows it on screen. The video shows the working folder as `~/own-it-demo`, not its real path.
 
 ## 2. Check the terminal narration
 
