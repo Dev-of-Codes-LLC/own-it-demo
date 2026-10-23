@@ -49,26 +49,26 @@
         { "say": "A picture arrives late, with no space kept for it.", "label": "a picture with *no size*",
           "do": [ { "show": "img", "at": "picture" } ] },
         { "say": "So everything below it jumps. Google scores every jump.", "label": "everything below *jumps*",
-          "do": [ { "set": { "id": "img", "at": { "16:9": [40, 25, 20, 16], "9:16": [22, 25, 56, 13] }, "ms": 260 }, "at": "jumps" },
-                  { "set": { "id": "card1", "at": { "16:9": [40, 42.5, 20, 13], "9:16": [22, 39, 56, 10] }, "ms": 260 } },
+          "do": [ { "set": { "id": "img", "at": { "16:9": [40, 25, 20, 16], "9:16": [22, 25, 56, 13] }, "ms": 260, "together": true }, "at": "jumps" },
+                  { "set": { "id": "card1", "at": { "16:9": [40, 42.5, 20, 13], "9:16": [22, 39, 56, 10] }, "ms": 260, "together": true } },
                   { "set": { "id": "card2", "at": { "16:9": [40, 57, 20, 13], "9:16": [22, 50.5, 56, 10] }, "ms": 260 } },
-                  { "count": { "id": "cls", "to": 0.25, "ms": 700 } }, { "pulse": "cls", "at": "scores" } ] },
+                  { "count": { "id": "cls", "to": 0.25, "ms": 900 }, "at": "scores" } ] },
         { "say": "The fix is boring. Keep the space before the content arrives.", "label": "keep the _space_",
           "do": [ { "hide": "img", "at": "fix" }, { "count": { "id": "cls", "to": 0, "ms": 500 } }, { "show": "slot", "at": "space" } ] }
       ]
     },
     {
-      "type": "browser", "system": "demo", "checkout": "before", "network": "slow-4g",
-      "overlay": ["layout-shift"], "badge": "before · Slow 4G",
+      "type": "browser", "system": "demo", "checkout": "before", "network": "slow-4g", "device": "phone",
+      "overlay": ["layout-shift"], "holdShifts": true, "badge": "before · Slow 4G",
       "beats": [
-        { "say": "Here is the real page, on a slow phone connection. Every amber box is something that moved.", "label": "the real page, *before*",
+        { "say": "Here is the real page, on a slow phone connection.", "label": "the real page, *before*",
           "do": [ { "goto": "/products?delay=1500" } ] },
-        { "say": "The grey blocks are too small, so the real cards shove everything down.", "label": "the skeleton is *too small*", "speed": 2,
+        { "say": "The grey blocks are too small, so when the real cards arrive, everything below them is shoved down.", "label": "the skeleton is *too small*", "speed": 2,
           "do": [ { "waitFor": "main[data-state=loaded]" } ] },
-        { "say": "Then each picture lands, and pushes the cards below it again.", "label": "pictures with *no size*",
-          "do": [ { "zoom": ".grid", "scale": { "16:9": 1.35, "9:16": 1.12 }, "at": "picture" }, { "wait": 1200 } ] },
-        { "say": "And the font swaps in late, so every title moves one more time.", "label": "a *late* font",
-          "do": [ { "unzoom": true, "at": "font" } ] }
+        { "say": "Every amber box marks something that moved. The dashed line is where it was.", "label": "every *amber box* moved",
+          "do": [ { "wait": 400 } ] },
+        { "say": "The pictures had no size, and the font swapped in late, so it all moved again.", "label": "pictures with *no size*, a *late* font",
+          "do": [ { "zoom": ".grid", "scale": { "16:9": 1.25, "9:16": 1.12 }, "at": "pictures" }, { "unzoom": true, "at": "font" } ] }
       ]
     },
     {
@@ -106,11 +106,12 @@
       ]
     },
     {
-      "type": "browser", "system": "demo", "checkout": "after", "network": "slow-4g",
-      "overlay": ["layout-shift"], "badge": "after · Slow 4G",
+      "type": "browser", "system": "demo", "checkout": "after", "network": "slow-4g", "device": "phone",
+      "overlay": ["layout-shift"], "holdShifts": true, "badge": "after · Slow 4G",
       "beats": [
         { "say": "Same page. Same slow network.", "label": "the same page, _after_", "do": [ { "goto": "/products?delay=1500" } ] },
-        { "say": "Nothing moves.", "label": "nothing *moves*", "speed": 2, "do": [ { "waitFor": "main[data-state=loaded]" }, { "wait": 1500 } ] }
+        { "say": "Nothing moves. No amber boxes, and the counter stays at zero.", "label": "nothing *moves*", "speed": 2,
+          "do": [ { "waitFor": "main[data-state=loaded]" }, { "wait": 1500 } ] }
       ]
     },
     {
