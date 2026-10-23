@@ -5,8 +5,8 @@
   "next": "the picture that loads last",
   "series": "../series.json",
   "formats": ["16:9", "9:16"],
-  "voice": "piper:en_US-joe-medium",
-  "voiceSpeed": 1.08,
+  "voice": "kokoro:af_heart",
+  "voiceSpeed": 1.05,
   "captions": ["9:16"],
   "sfx": true,
   "systems": {
@@ -45,16 +45,16 @@
       ],
       "beats": [
         { "say": "A layout shift is when the thing you are reading moves, and you did not touch anything.", "label": "layout *shift*",
-          "do": [ { "show": ["frame", "header", "card1", "card2"] }, { "show": "cls" } ] },
+          "do": [ { "show": ["frame", "header", "card1", "card2"] }, { "show": "cls", "at": "moves" } ] },
         { "say": "A picture arrives late, with no space kept for it.", "label": "a picture with *no size*",
-          "do": [ { "show": "img" }, { "wait": 300 } ] },
+          "do": [ { "show": "img", "at": "picture" } ] },
         { "say": "So everything below it jumps. Google scores every jump.", "label": "everything below *jumps*",
-          "do": [ { "set": { "id": "img", "at": { "16:9": [40, 25, 20, 16], "9:16": [22, 25, 56, 13] }, "ms": 260 } },
+          "do": [ { "set": { "id": "img", "at": { "16:9": [40, 25, 20, 16], "9:16": [22, 25, 56, 13] }, "ms": 260 }, "at": "jumps" },
                   { "set": { "id": "card1", "at": { "16:9": [40, 42.5, 20, 13], "9:16": [22, 39, 56, 10] }, "ms": 260 } },
                   { "set": { "id": "card2", "at": { "16:9": [40, 57, 20, 13], "9:16": [22, 50.5, 56, 10] }, "ms": 260 } },
-                  { "count": { "id": "cls", "to": 0.25, "ms": 700 } }, { "pulse": "cls" } ] },
+                  { "count": { "id": "cls", "to": 0.25, "ms": 700 } }, { "pulse": "cls", "at": "scores" } ] },
         { "say": "The fix is boring. Keep the space before the content arrives.", "label": "keep the _space_",
-          "do": [ { "hide": "img" }, { "count": { "id": "cls", "to": 0, "ms": 500 } }, { "show": "slot" }, { "set": { "id": "slot", "tone": "cyan" } } ] }
+          "do": [ { "hide": "img", "at": "fix" }, { "count": { "id": "cls", "to": 0, "ms": 500 } }, { "show": "slot", "at": "space" } ] }
       ]
     },
     {
@@ -66,9 +66,9 @@
         { "say": "The grey blocks are too small, so the real cards shove everything down.", "label": "the skeleton is *too small*", "speed": 2,
           "do": [ { "waitFor": "main[data-state=loaded]" } ] },
         { "say": "Then each picture lands, and pushes the cards below it again.", "label": "pictures with *no size*",
-          "do": [ { "zoom": ".grid", "scale": { "16:9": 1.35, "9:16": 1.12 } }, { "wait": 1200 } ] },
+          "do": [ { "zoom": ".grid", "scale": { "16:9": 1.35, "9:16": 1.12 }, "at": "picture" }, { "wait": 1200 } ] },
         { "say": "And the font swaps in late, so every title moves one more time.", "label": "a *late* font",
-          "do": [ { "unzoom": true } ] }
+          "do": [ { "unzoom": true, "at": "font" } ] }
       ]
     },
     {
