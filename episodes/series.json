@@ -1,0 +1,22 @@
+{
+  "introAfterFirst": true,
+  "intro": [
+    {
+      "type": "card", "template": "sting",
+      "fields": { "title": "OWN IT", "subtitle": "Episode {episode} · {title}" },
+      "beats": [ { "hold": 1900 } ]
+    }
+  ],
+  "outro": [
+    {
+      "type": "card", "template": "outro",
+      "fields": {
+        "kicker": "Own It · free skills for owning what failed",
+        "title": "Own the next one.",
+        "subtitle": "after-action is free in agent-toolkit. The demo and DOC Docs are free too.",
+        "next": "Next: {next}"
+      },
+      "beats": [ { "say": "Own the next one. Everything in this video is free. Links are below.", "hold": 3200 } ]
+    }
+  ]
+}

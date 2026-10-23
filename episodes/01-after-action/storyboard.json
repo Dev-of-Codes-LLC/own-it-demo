@@ -1,8 +1,14 @@
 {
   "id": "own-it-01-after-action",
-  "title": "Own It #1: the page that jumped",
+  "title": "The page that jumped",
+  "episode": 1,
+  "next": "the picture that loads last",
+  "series": "../series.json",
   "formats": ["16:9", "9:16"],
   "voice": "piper:en_US-joe-medium",
+  "voiceSpeed": 1.08,
+  "captions": ["9:16"],
+  "sfx": true,
   "systems": {
     "demo": {
       "repo": "../..",
@@ -22,72 +28,111 @@
   },
   "scenes": [
     {
-      "type": "card", "template": "title",
-      "fields": { "kicker": "Own It · Episode 1", "title": "The page that jumped", "subtitle": "A failed UAT, reviewed by a blunt AI skill. Then fixed, and measured." },
-      "beats": [ { "say": "UAT came back bad. The product list jumps while it loads, and the team has reasons." } ]
+      "type": "card", "template": "hook",
+      "fields": { "kicker": "UAT · round 2 · not accepted", "text": "Why does this page *jump*?" },
+      "beats": [ { "say": "UAT failed. The product list jumps every time it loads. Why?" } ]
     },
     {
-      "type": "card", "template": "text",
-      "fields": { "kicker": "What the team said", "title": "\u201cIt worked on my machine.\u201d", "body": "The QA API is slow. The testers clicked too fast. Nobody uses the site on train wifi." },
-      "beats": [ { "say": "The API is slow. The testers clicked too fast. It worked on my machine." } ]
+      "type": "explain",
+      "elements": [
+        { "id": "frame", "kind": "box", "style": "solid", "tone": "dim", "at": { "16:9": [38, 14, 24, 74], "9:16": [18, 17, 64, 56] } },
+        { "id": "header", "kind": "box", "style": "fill", "tone": "dim", "at": { "16:9": [40, 18, 20, 4], "9:16": [22, 20, 56, 3.5] } },
+        { "id": "img", "kind": "box", "style": "dashed", "tone": "amber", "label": "picture, no size", "at": { "16:9": [40, 25, 20, 0], "9:16": [22, 25, 56, 0] } },
+        { "id": "card1", "kind": "box", "style": "fill", "tone": "muted", "at": { "16:9": [40, 26, 20, 13], "9:16": [22, 26, 56, 10] } },
+        { "id": "card2", "kind": "box", "style": "fill", "tone": "muted", "at": { "16:9": [40, 40.5, 20, 13], "9:16": [22, 37.5, 56, 10] } },
+        { "id": "slot", "kind": "box", "style": "dashed", "tone": "cyan", "label": "space kept", "at": { "16:9": [40, 25, 20, 16], "9:16": [22, 25, 56, 13] } },
+        { "id": "cls", "kind": "counter", "label": "LAYOUT SHIFT", "digits": 3, "tone": "amber", "at": { "16:9": [78, 50], "9:16": [50, 79] } }
+      ],
+      "beats": [
+        { "say": "A layout shift is when the thing you are reading moves, and you did not touch anything.", "label": "layout *shift*",
+          "do": [ { "show": ["frame", "header", "card1", "card2"] }, { "show": "cls" } ] },
+        { "say": "A picture arrives late, with no space kept for it.", "label": "a picture with *no size*",
+          "do": [ { "show": "img" }, { "wait": 300 } ] },
+        { "say": "So everything below it jumps. Google scores every jump.", "label": "everything below *jumps*",
+          "do": [ { "set": { "id": "img", "at": { "16:9": [40, 25, 20, 16], "9:16": [22, 25, 56, 13] }, "ms": 260 } },
+                  { "set": { "id": "card1", "at": { "16:9": [40, 42.5, 20, 13], "9:16": [22, 39, 56, 10] }, "ms": 260 } },
+                  { "set": { "id": "card2", "at": { "16:9": [40, 57, 20, 13], "9:16": [22, 50.5, 56, 10] }, "ms": 260 } },
+                  { "count": { "id": "cls", "to": 0.25, "ms": 700 } }, { "pulse": "cls" } ] },
+        { "say": "The fix is boring. Keep the space before the content arrives.", "label": "keep the _space_",
+          "do": [ { "hide": "img" }, { "count": { "id": "cls", "to": 0, "ms": 500 } }, { "show": "slot" }, { "set": { "id": "slot", "tone": "cyan" } } ] }
+      ]
     },
     {
       "type": "browser", "system": "demo", "checkout": "before", "network": "slow-4g",
       "overlay": ["layout-shift"], "badge": "before · Slow 4G",
       "beats": [
-        { "say": "Here is the page on a slow phone connection, with every layout shift outlined.", "do": [ { "goto": "/products?delay=1500" } ] },
-        { "say": "Grey blocks first. Then the real cards arrive, taller, and shove everything down.", "do": [ { "waitFor": "main[data-state=loaded]" } ] },
-        { "say": "Then each picture lands and pushes the cards below it again.", "do": [ { "wait": 2500 } ] },
-        { "say": "And the font swaps in late, so every title and price moves one more time.", "do": [ { "wait": 1000 } ] }
+        { "say": "Here is the real page, on a slow phone connection. Every amber box is something that moved.", "label": "the real page, *before*",
+          "do": [ { "goto": "/products?delay=1500" } ] },
+        { "say": "The grey blocks are too small, so the real cards shove everything down.", "label": "the skeleton is *too small*", "speed": 2,
+          "do": [ { "waitFor": "main[data-state=loaded]" } ] },
+        { "say": "Then each picture lands, and pushes the cards below it again.", "label": "pictures with *no size*",
+          "do": [ { "zoom": ".grid", "scale": { "16:9": 1.35, "9:16": 1.12 } }, { "wait": 1200 } ] },
+        { "say": "And the font swaps in late, so every title moves one more time.", "label": "a *late* font",
+          "do": [ { "unzoom": true } ] }
+      ]
+    },
+    {
+      "type": "explain", "captions": false,
+      "elements": [
+        { "id": "e1", "kind": "text", "text": "“The QA API is slow.”", "at": [50, 34] },
+        { "id": "e2", "kind": "text", "text": "“The testers clicked too fast.”", "at": [50, 50] },
+        { "id": "e3", "kind": "text", "text": "“It worked on my machine.”", "at": [50, 66] }
+      ],
+      "beats": [
+        { "say": "The team had reasons.", "label": "what the team *said*", "do": [ { "show": "e1" } ] },
+        { "say": "The API was slow. The testers clicked too fast.", "do": [ { "show": "e2" } ] },
+        { "say": "And it worked on my machine.", "do": [ { "show": "e3" } ] }
       ]
     },
     {
       "type": "terminal", "take": "takes/after-action-run.jsonl",
       "prompt": "UAT came back bad on the product list. The notes are in uat/feedback.md and what the team said is in uat/excuses.md. Do an after-action review.",
       "beats": [
-        { "say": "So we hand it to after-action, a free skill inspired by Extreme Ownership.", "do": [ { "reveal": 2 } ] },
+        { "say": "So we hand it to after-action, a free skill inspired by Extreme Ownership.", "label": "after-action reads the *evidence*",
+          "do": [ { "reveal": 2 } ] },
         { "say": "REWRITE FROM THE REAL RUN: what it read before it judged.", "do": [ { "reveal": "tools" } ] },
-        { "say": "REWRITE FROM THE REAL RUN: the blunt reality, in its own words.", "do": [ { "reveal": "final" } ], "hold": 4000 }
+        { "say": "REWRITE FROM THE REAL RUN: the blunt reality, in its own words.", "label": "then the *debrief*",
+          "do": [ { "reveal": "final" } ], "hold": 3500 }
       ]
     },
     {
       "type": "code", "repo": "../..", "diff": "before..after", "kicker": "git diff before..after", "title": "Four fixes, one commit each",
       "files": ["src/components/ProductSkeleton.tsx", "src/components/ProductCard.tsx", "src/components/PromoBanner.tsx", "index.html"],
       "beats": [
-        { "say": "Fix one: the skeleton uses the card's own layout, one placeholder per product.", "do": [ { "file": 1 } ] },
-        { "say": "Fix two: every image gets its size before it arrives.", "do": [ { "file": 2 } ] },
-        { "say": "Fix three: the banner gets a slot that is always there.", "do": [ { "file": 3 } ] },
-        { "say": "Fix four: preload the font, and never swap it in late.", "do": [ { "file": 4 } ] }
+        { "say": "Fix one. The skeleton uses the card's own layout.", "label": "fix 1: size the *skeleton*", "do": [ { "file": 1 } ] },
+        { "say": "Fix two. Every picture gets its size before it arrives.", "label": "fix 2: give pictures a *size*", "do": [ { "file": 2 } ] },
+        { "say": "Fix three. The banner gets a slot that is always there.", "label": "fix 3: *reserve* the banner", "do": [ { "file": 3 } ] },
+        { "say": "Fix four. Preload the font, and never swap it late.", "label": "fix 4: *preload* the font", "do": [ { "file": 4 } ] }
       ]
     },
     {
       "type": "browser", "system": "demo", "checkout": "after", "network": "slow-4g",
       "overlay": ["layout-shift"], "badge": "after · Slow 4G",
       "beats": [
-        { "say": "Same page. Same slow network.", "do": [ { "goto": "/products?delay=1500" } ] },
-        { "say": "Nothing moves.", "do": [ { "waitFor": "main[data-state=loaded]" }, { "wait": 3000 } ] }
+        { "say": "Same page. Same slow network.", "label": "the same page, _after_", "do": [ { "goto": "/products?delay=1500" } ] },
+        { "say": "Nothing moves.", "label": "nothing *moves*", "speed": 2, "do": [ { "waitFor": "main[data-state=loaded]" }, { "wait": 1500 } ] }
       ]
     },
     {
       "type": "card", "template": "metric", "metric": "cls",
       "fields": { "kicker": "Measured, not guessed" },
-      "beats": [ { "say": "Measured with Lighthouse on a throttled phone, before and after.", "hold": 4500 } ]
+      "beats": [ { "say": "Measured with Lighthouse on a throttled phone, before and after.", "hold": 3600 } ]
     },
     {
       "type": "card", "template": "text",
-      "fields": { "kicker": "One honest note", "title": "LCP went up. The page did not get slower.", "body": "The pictures arrive at the same moment in both builds. Now the largest thing on screen is a product image, not the heading. That is the next episode." },
-      "beats": [ { "say": "One honest note. The load metric went up, but the page did not get slower. The biggest thing on screen is now a real product image, and that is the next fight." } ]
+      "fields": { "kicker": "One honest note", "title": "LCP went up. The page did not get slower.", "body": "The pictures arrive at the same moment in both builds. Now the biggest thing on screen is a product picture, not the heading." },
+      "beats": [ { "say": "One honest note. The load score went up, but the page is not slower. The biggest thing on screen is now a real picture. That is next." } ]
     },
     {
       "type": "card", "template": "credit",
-      "fields": { "kicker": "Free and open source", "lines": [
+      "fields": { "kicker": "Credit", "lines": [
         "Inspired by Extreme Ownership by Jocko Willink and Leif Babin. Not affiliated with or endorsed by them.",
         "github.com/Dev-of-Codes-LLC/agent-toolkit",
         "github.com/Dev-of-Codes-LLC/own-it-demo",
         "Filmed with DOC Docs, also free:",
         "github.com/Dev-of-Codes-LLC/doc-docs"
       ] },
-      "beats": [ { "say": "The skill, this demo, and the tool that filmed it are all free. Links are below.", "hold": 3000 } ]
+      "beats": [ { "hold": 2600 } ]
     }
   ]
 }
