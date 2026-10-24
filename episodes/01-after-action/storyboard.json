@@ -90,8 +90,8 @@
       "beats": [
         { "say": "So we hand it to after-action, a free skill inspired by the book Extreme Ownership, by Jocko Willink and Leif Babin.", "label": "after-action reads the *evidence*",
           "do": [ { "reveal": 2 } ] },
-        { "say": "It reads the evidence before it judges: the UAT notes, the code, and the history.", "do": [ { "reveal": "tools" } ] },
-        { "say": "Then it gives the debrief. Blunt, and every excuse owned.", "label": "then the *debrief*",
+        { "say": "It reads the evidence before it judges: the UAT notes, every file behind the page, and the last commit.", "do": [ { "reveal": "tools" } ] },
+        { "say": "Then the debrief. Every excuse owned, three fixes in order, and a list of what it could not check.", "label": "then the *debrief*",
           "do": [ { "reveal": "final" } ], "hold": 3500 }
       ]
     },
