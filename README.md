@@ -24,7 +24,7 @@ The four bugs on `before`:
 
 ## Run it
 
-Node 18 or newer.
+Node 20.19 or newer (on Node 22, at least 22.12).
 
 ```bash
 npm install
