@@ -6,13 +6,13 @@ The storyboard for Own It episode 1, filmed with [DOC Docs](https://github.com/D
 | --- | --- |
 | `storyboard.json` | The scenes, the narration and the actions |
 | `measurements.json` | Lighthouse numbers for `before` and `after`, written by `docdocs measure`. The metric card reads them. |
-| `takes/after-action-run.jsonl` | The real `after-action` run that the terminal scene replays, saved as is. Recorded 2026-10-24. |
+| `takes/after-action-run.jsonl` | The real `after-action` run that the terminal scene replays. Recorded 2026-10-24 and kept as it ran, with two edits: the event that listed the recording machine's installed commands is removed, and the commit author in git output reads `[author removed]`. Neither is on screen. |
 
 ## 1. Record the take, once
 
 The terminal scene replays a real run. Nothing is typed by hand. The take is already recorded; redo it only if the skill or the `before` tag changes.
 
-Record it in a clean clone that holds only the `before` tag, so the run sees what the team had after UAT and cannot read the fixes on `after`. Give it the `before` Lighthouse reports and nothing else. The `own-it` plugin must be installed (`claude plugin install own-it@agent-toolkit`), and `claude` must be signed in.
+Record it in a clean clone that holds only the `before` tag, so the run sees what the team had after UAT and cannot read the fixes on `after`. Give it the `before` Lighthouse reports and nothing else. The plugin must be installed (`claude plugin install devofcodes-own-it@agent-toolkit`), and `claude` must be signed in. The plugin was named `own-it` when the take was recorded, so the take shows the skill as `own-it:after-action`; a new take will show `devofcodes-own-it:after-action`.
 
 In PowerShell, from this repo:
 
